@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang">
+
+    <title>lib.rs.html -- source</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc source">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
+<span id="2"> 2</span>
+<span id="3"> 3</span>
+<span id="4"> 4</span>
+<span id="5"> 5</span>
+<span id="6"> 6</span>
+<span id="7"> 7</span>
+<span id="8"> 8</span>
+<span id="9"> 9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! # Actix is a rust actor system framework.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [Actors](https://fafhrd91.github.io/actix/actix/trait.Actor.html) are objects</span>
+<span class="doccomment">//! which encapsulate state and behavior, they communicate exclusively</span>
+<span class="doccomment">//! by exchanging messages. Actix actors are implemented on top of [Tokio](https://tokio.rs).</span>
+<span class="doccomment">//! Mutiple actors could run in same thread. Actors could run in multiple threads</span>
+<span class="doccomment">//! with suppoprt of [`Arbiter`](https://fafhrd91.github.io/actix/actix/struct.Arbiter.html).</span>
+<span class="doccomment">//! Actors exchange typed messages. Actix does not use any unstable rust features and</span>
+<span class="doccomment">//! can be compiled with state rust compiler.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Features</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! * Typed messages (No `Any` type). Generic messages are allowed.</span>
+<span class="doccomment">//! * Actor communication in a local/thread context.</span>
+<span class="doccomment">//! * Actor supervision.</span>
+<span class="doccomment">//! * Using Futures for asynchronous message handling.</span>
+<span class="doccomment">//! * Compiles with stable rust</span>
+
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">uuid</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">crossbeam</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">futures</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_io</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_core</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;signal&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_signal</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;signal&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
+
+<span class="kw">mod</span> <span class="ident">actor</span>;
+<span class="kw">mod</span> <span class="ident">arbiter</span>;
+<span class="kw">mod</span> <span class="ident">address</span>;
+<span class="kw">mod</span> <span class="ident">context</span>;
+<span class="kw">mod</span> <span class="ident">envelope</span>;
+<span class="kw">mod</span> <span class="ident">framed</span>;
+<span class="kw">mod</span> <span class="ident">queue</span>;
+<span class="kw">mod</span> <span class="ident">message</span>;
+<span class="kw">mod</span> <span class="ident">registry</span>;
+<span class="kw">mod</span> <span class="ident">system</span>;
+<span class="kw">mod</span> <span class="ident">supervisor</span>;
+<span class="kw">mod</span> <span class="ident">utils</span>;
+
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">fut</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">actors</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">msgs</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">sync</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">dev</span>;
+
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">fut</span>::{<span class="ident">ActorFuture</span>, <span class="ident">ActorStream</span>, <span class="ident">WrapFuture</span>, <span class="ident">WrapStream</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">actor</span>::{<span class="ident">Actor</span>, <span class="ident">ActorState</span>, <span class="ident">FramedActor</span>, <span class="ident">Supervised</span>,
+                <span class="ident">Handler</span>, <span class="ident">ResponseType</span>, <span class="ident">StreamHandler</span>,
+                <span class="ident">ActorContext</span>, <span class="ident">AsyncContext</span>, <span class="ident">SpawnHandle</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">arbiter</span>::<span class="ident">Arbiter</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">address</span>::{<span class="ident">Address</span>, <span class="ident">SyncAddress</span>, <span class="ident">Subscriber</span>, <span class="ident">ActorAddress</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">context</span>::{<span class="ident">Context</span>, <span class="ident">ContextFutureSpawner</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">envelope</span>::<span class="ident">ToEnvelope</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">framed</span>::<span class="ident">FramedContext</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">message</span>::{<span class="ident">Request</span>, <span class="ident">Response</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">registry</span>::{<span class="ident">Registry</span>, <span class="ident">SystemRegistry</span>, <span class="ident">ArbiterService</span>, <span class="ident">SystemService</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">system</span>::{<span class="ident">System</span>, <span class="ident">SystemRunner</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">Condition</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">supervisor</span>::<span class="ident">Supervisor</span>;
+</pre>
+</section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "actix";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

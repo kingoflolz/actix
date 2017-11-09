@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Actor` trait in crate `actix`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Actor">
+
+    <title>actix::Actor - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc trait">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Trait Actor</p><div class="block items"><ul><li><a href="#associated-types">Associated Types</a></li><li><a href="#provided-methods">Provided Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='index.html'>actix</a></p><script>window.sidebarCurrent = {name: 'Actor', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>actix</a>::<wbr><a class="trait" href=''>Actor</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/actix/actor.rs.html#65-176' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Actor: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + 'static {
+    type <a href='#associatedtype.Context' class="type">Context</a>: <a class="trait" href="../actix/prelude/trait.ActorContext.html" title="trait actix::prelude::ActorContext">ActorContext</a> + <a class="trait" href="../actix/prelude/trait.ToEnvelope.html" title="trait actix::prelude::ToEnvelope">ToEnvelope</a>&lt;Self&gt;;
+    fn <a href='#method.started' class='fnname'>started</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.stopping' class='fnname'>stopping</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.stopped' class='fnname'>stopped</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.start' class='fnname'>start</a>&lt;Addr&gt;(self) -&gt; Addr<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;</span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.start_default' class='fnname'>start_default</a>&lt;Addr&gt;() -&gt; Addr<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;</span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.create' class='fnname'>create</a>&lt;Addr, F&gt;(f: F) -&gt; Addr<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(&amp;mut <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;) -&gt; Self + 'static</span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.reply' class='fnname'>reply</a>&lt;M&gt;(val: M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Item" title="type actix::prelude::ResponseType::Item">Item</a>) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt;<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a></span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.async_reply' class='fnname'>async_reply</a>&lt;T, M&gt;(fut: T) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt;<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../actix/fut/trait.ActorFuture.html" title="trait actix::fut::ActorFuture">ActorFuture</a>&lt;Item = M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Item" title="type actix::prelude::ResponseType::Item">Item</a>, Error = M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Error" title="type actix::prelude::ResponseType::Error">Error</a>, Actor = Self&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + 'static</span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.empty' class='fnname'>empty</a>&lt;M&gt;() -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt;<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>&lt;Item = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt;</span>,
+    { ... }
+<div class='item-spacer'></div>    fn <a href='#method.reply_error' class='fnname'>reply_error</a>&lt;M&gt;(err: M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Error" title="type actix::prelude::ResponseType::Error">Error</a>) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt;<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a></span>,
+    { ... }
+}</pre><div class='docblock'><p>Actors are objects which encapsulate state and behavior.</p>
+
+<p>Actors run within specific execution context
+<a href="https://fafhrd91.github.io/actix/actix/struct.Context.html">Context<A></a>.
+Context object is available only during execution. Each actor has separate
+execution context. Also execution context controls lifecycle of an actor.</p>
+
+<p>Actors communicate exclusively by exchanging messages. Sender actor can
+wait for response. Actors are not referenced dirrectly, but by
+non thread safe <a href="https://fafhrd91.github.io/actix/actix/struct.Address.html">Address<A></a>
+or thread safe address
+<a href="https://fafhrd91.github.io/actix/actix/struct.SyncAddress.html"><code>SyncAddress&lt;A&gt;</code></a>
+To be able to handle specific message actor has to provide
+<a href="file:///Users/nikki/personal/ctx/target/doc/actix/trait.Handler.html"><code>Handler&lt;M&gt;</code></a>
+implementation for this message. All messages are statically typed. Message could be
+handled in asynchronous fasion. Actor can spawn other actors or add futures or
+streams to execution context. Actor trait provides several method that allows
+to control actor lifecycle.</p>
+
+<h1 id='actor-lifecycle' class='section-header'><a href='#actor-lifecycle'>Actor lifecycle</a></h1>
+<h2 id='started' class='section-header'><a href='#started'>Started</a></h2>
+<p>Actor starts in <code>Started</code> state, during this state <code>started</code> method get called.</p>
+
+<h2 id='running' class='section-header'><a href='#running'>Running</a></h2>
+<p>Aftre Actor&#39;s method <code>started</code> get called, actor transitiones to <code>Running</code> state.
+Actor can stay in <code>running</code> state indefinitely long.</p>
+
+<h2 id='stopping' class='section-header'><a href='#stopping'>Stopping</a></h2>
+<p>Actor execution state changes to <code>stopping</code> state in following situations,</p>
+
+<ul>
+<li><code>Context::stop</code> get called by actor itself</li>
+<li>all addresses to the actor get dropped</li>
+<li>no evented objects are registered in context.</li>
+</ul>
+
+<p>Actor could restore from <code>stopping</code> state to <code>running</code> state by creating new
+address or adding evented object, like future or stream, in <code>Actor::stopping</code> method.</p>
+
+<h2 id='stopped' class='section-header'><a href='#stopped'>Stopped</a></h2>
+<p>If actor does not modify execution context during stooping state actor state changes
+to <code>Stopped</code>. This state is considered final and at this point actor get dropped.</p>
+</div>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
+            <div class='methods'>
+        <h3 id='associatedtype.Context' class='method'><span id='Context.t' class='invisible'><code>type <a href='#associatedtype.Context' class="type">Context</a>: <a class="trait" href="../actix/prelude/trait.ActorContext.html" title="trait actix::prelude::ActorContext">ActorContext</a> + <a class="trait" href="../actix/prelude/trait.ToEnvelope.html" title="trait actix::prelude::ToEnvelope">ToEnvelope</a>&lt;Self&gt;</code></span></h3><div class='docblock'><p>Actor execution context type</p>
+</div></div>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
+            <div class='methods'>
+        <h3 id='method.started' class='method'><span id='started.v' class='invisible'><code>fn <a href='#method.started' class='fnname'>started</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>)</code></span></h3><div class='docblock'><p>Method is called when actor get polled first time.</p>
+</div><h3 id='method.stopping' class='method'><span id='stopping.v' class='invisible'><code>fn <a href='#method.stopping' class='fnname'>stopping</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>)</code></span></h3><div class='docblock'><p>Method is called after an actor is in <code>Actor::Stopping</code> state. There could be several
+reasons for stopping. <code>Context::stop</code> get called by the actor itself.
+All addresses to current actor get dropped and no more evented objects
+left in the context. Actor could restore from stopping state to running state
+by creating new address or adding future or stream to current content.</p>
+</div><h3 id='method.stopped' class='method'><span id='stopped.v' class='invisible'><code>fn <a href='#method.stopped' class='fnname'>stopped</a>(&amp;mut self, ctx: &amp;mut Self::<a class="type" href="../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>)</code></span></h3><div class='docblock'><p>Method is called after an actor is stopped, it can be used to perform
+any needed cleanup work or spawning more actors. This is final state,
+after this call actor get dropped.</p>
+</div><h3 id='method.start' class='method'><span id='start.v' class='invisible'><code>fn <a href='#method.start' class='fnname'>start</a>&lt;Addr&gt;(self) -&gt; Addr <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;,&nbsp;</span></code></span></h3><div class='docblock'><p>Start new asynchronous actor, returns address of newly created actor.</p>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">actix</span>::<span class="kw-2">*</span>;
+
+<span class="comment">// initialize system</span>
+<span class="ident">System</span>::<span class="ident">new</span>(<span class="string">&quot;test&quot;</span>);
+
+<span class="kw">struct</span> <span class="ident">MyActor</span>;
+<span class="kw">impl</span> <span class="ident">Actor</span> <span class="kw">for</span> <span class="ident">MyActor</span> {
+    <span class="kw">type</span> <span class="ident">Context</span> <span class="op">=</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+}
+
+<span class="kw">let</span> <span class="ident">addr</span>: <span class="ident">Address</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">MyActor</span>.<span class="ident">start</span>();</pre>
+</div><h3 id='method.start_default' class='method'><span id='start_default.v' class='invisible'><code>fn <a href='#method.start_default' class='fnname'>start_default</a>&lt;Addr&gt;() -&gt; Addr <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;,&nbsp;</span></code></span></h3><div class='docblock'><p>Start new asynchronous actor, returns address of newly created actor.</p>
+</div><h3 id='method.create' class='method'><span id='create.v' class='invisible'><code>fn <a href='#method.create' class='fnname'>create</a>&lt;Addr, F&gt;(f: F) -&gt; Addr <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;&gt; + <a class="trait" href="../actix/dev/trait.ActorAddress.html" title="trait actix::dev::ActorAddress">ActorAddress</a>&lt;Self, Addr&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(&amp;mut <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;) -&gt; Self + 'static,&nbsp;</span></code></span></h3><div class='docblock'><p>Use <code>create</code> method, if you need <code>Context</code> object during actor initialization.</p>
+
+<h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">actix</span>::<span class="kw-2">*</span>;
+
+<span class="comment">// initialize system</span>
+<span class="ident">System</span>::<span class="ident">new</span>(<span class="string">&quot;test&quot;</span>);
+
+<span class="kw">struct</span> <span class="ident">MyActor</span>{<span class="ident">val</span>: <span class="ident">usize</span>};
+<span class="kw">impl</span> <span class="ident">Actor</span> <span class="kw">for</span> <span class="ident">MyActor</span> {
+    <span class="kw">type</span> <span class="ident">Context</span> <span class="op">=</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+}
+
+<span class="kw">let</span> <span class="ident">addr</span>: <span class="ident">Address</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">MyActor</span>::<span class="ident">create</span>(<span class="op">|</span><span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="ident">MyActor</span><span class="op">&gt;</span><span class="op">|</span> {
+    <span class="ident">MyActor</span>{<span class="ident">val</span>: <span class="number">10</span>}
+});</pre>
+</div><h3 id='method.reply' class='method'><span id='reply.v' class='invisible'><code>fn <a href='#method.reply' class='fnname'>reply</a>&lt;M&gt;(val: M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Item" title="type actix::prelude::ResponseType::Item">Item</a>) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Create static response.</p>
+</div><h3 id='method.async_reply' class='method'><span id='async_reply.v' class='invisible'><code>fn <a href='#method.async_reply' class='fnname'>async_reply</a>&lt;T, M&gt;(fut: T) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../actix/fut/trait.ActorFuture.html" title="trait actix::fut::ActorFuture">ActorFuture</a>&lt;Item = M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Item" title="type actix::prelude::ResponseType::Item">Item</a>, Error = M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Error" title="type actix::prelude::ResponseType::Error">Error</a>, Actor = Self&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + 'static,&nbsp;</span></code></span></h3><div class='docblock'><p>Create async response process.</p>
+</div><h3 id='method.empty' class='method'><span id='empty.v' class='invisible'><code>fn <a href='#method.empty' class='fnname'>empty</a>&lt;M&gt;() -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>&lt;Item = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt;,&nbsp;</span></code></span></h3><div class='docblock'><p>Create unit response, for case when <code>ResponseType::Item = ()</code></p>
+</div><h3 id='method.reply_error' class='method'><span id='reply_error.v' class='invisible'><code>fn <a href='#method.reply_error' class='fnname'>reply_error</a>&lt;M&gt;(err: M::<a class="type" href="../actix/prelude/trait.ResponseType.html#associatedtype.Error" title="type actix::prelude::ResponseType::Error">Error</a>) -&gt; <a class="struct" href="../actix/struct.Response.html" title="struct actix::Response">Response</a>&lt;Self, M&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;M: <a class="trait" href="../actix/prelude/trait.ResponseType.html" title="trait actix::prelude::ResponseType">ResponseType</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Create error response</p>
+</div></div>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl Actor for <a class="struct" href="../actix/struct.Arbiter.html" title="struct actix::Arbiter">Arbiter</a><span class="where fmt-newline">  type <a href='#associatedtype.Context' class="type">Context</a> = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;;</span></code></li>
+<li><code>impl Actor for <a class="struct" href="../actix/struct.System.html" title="struct actix::System">System</a><span class="where fmt-newline">  type <a href='#associatedtype.Context' class="type">Context</a> = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;;</span></code></li>
+<li><code>impl&lt;A&gt; Actor for <a class="struct" href="../actix/sync/struct.SyncArbiter.html" title="struct actix::sync::SyncArbiter">SyncArbiter</a>&lt;A&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>&lt;Context = <a class="struct" href="../actix/sync/struct.SyncContext.html" title="struct actix::sync::SyncContext">SyncContext</a>&lt;A&gt;&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Context' class="type">Context</a> = <a class="struct" href="../actix/struct.Context.html" title="struct actix::Context">Context</a>&lt;Self&gt;;</span></code></li>
+</ul><script type="text/javascript" async
+                         src="../implementors/actix/trait.Actor.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "actix";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

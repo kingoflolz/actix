@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ActorAddressCell",""],["ActorItemsCell",""],["ActorWaitCell",""],["Envelope",""],["RemoteEnvelope",""]],"trait":[["ActorAddress","Trait give access to actor's address"],["AsyncContextApi",""],["ToEnvelope","Converter trait, packs message to suitable envelope"]]});

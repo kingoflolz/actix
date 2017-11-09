@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ActorAddress` trait in crate `actix`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ActorAddress">
+
+    <title>actix::dev::ActorAddress - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc trait">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Trait ActorAddress</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>actix</a>::<wbr><a href='index.html'>dev</a></p><script>window.sidebarCurrent = {name: 'ActorAddress', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>actix</a>::<wbr><a href='index.html'>dev</a>::<wbr><a class="trait" href=''>ActorAddress</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/actix/address.rs.html#13-16' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ActorAddress&lt;A, T&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>,&nbsp;</span>{
+    fn <a href='#tymethod.get' class='fnname'>get</a>(ctx: &amp;mut A::<a class="type" href="../../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>) -&gt; T;
+}</pre><div class='docblock'><p>Trait give access to actor&#39;s address</p>
+</div>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
+            <div class='methods'>
+        <h3 id='tymethod.get' class='method'><span id='get.v' class='invisible'><code>fn <a href='#tymethod.get' class='fnname'>get</a>(ctx: &amp;mut A::<a class="type" href="../../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>) -&gt; T</code></span></h3><div class='docblock'><p>Returns actor&#39;s address for specific context</p>
+</div></div>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl&lt;A&gt; ActorAddress&lt;A, <a class="struct" href="../../actix/struct.Address.html" title="struct actix::Address">Address</a>&lt;A&gt;&gt; for A <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;A::<a class="type" href="../../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>: <a class="trait" href="../../actix/prelude/trait.AsyncContext.html" title="trait actix::prelude::AsyncContext">AsyncContext</a>&lt;A&gt; + <a class="trait" href="../../actix/dev/trait.AsyncContextApi.html" title="trait actix::dev::AsyncContextApi">AsyncContextApi</a>&lt;A&gt;,&nbsp;</span></code></li>
+<li><code>impl&lt;A&gt; ActorAddress&lt;A, <a class="struct" href="../../actix/struct.SyncAddress.html" title="struct actix::SyncAddress">SyncAddress</a>&lt;A&gt;&gt; for A <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;A::<a class="type" href="../../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>: <a class="trait" href="../../actix/prelude/trait.AsyncContext.html" title="trait actix::prelude::AsyncContext">AsyncContext</a>&lt;A&gt; + <a class="trait" href="../../actix/dev/trait.AsyncContextApi.html" title="trait actix::dev::AsyncContextApi">AsyncContextApi</a>&lt;A&gt;,&nbsp;</span></code></li>
+<li><code>impl&lt;A&gt; ActorAddress&lt;A, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../actix/struct.Address.html" title="struct actix::Address">Address</a>&lt;A&gt;, <a class="struct" href="../../actix/struct.SyncAddress.html" title="struct actix::SyncAddress">SyncAddress</a>&lt;A&gt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt; for A <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;A::<a class="type" href="../../actix/prelude/trait.Actor.html#associatedtype.Context" title="type actix::prelude::Actor::Context">Context</a>: <a class="trait" href="../../actix/prelude/trait.AsyncContext.html" title="trait actix::prelude::AsyncContext">AsyncContext</a>&lt;A&gt; + <a class="trait" href="../../actix/dev/trait.AsyncContextApi.html" title="trait actix::dev::AsyncContextApi">AsyncContextApi</a>&lt;A&gt;,&nbsp;</span></code></li>
+<li><code>impl&lt;A&gt; ActorAddress&lt;A, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt; for A <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../actix/prelude/trait.Actor.html" title="trait actix::prelude::Actor">Actor</a>,&nbsp;</span></code></li>
+</ul><script type="text/javascript" async
+                         src="../../implementors/actix/dev/trait.ActorAddress.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "actix";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
